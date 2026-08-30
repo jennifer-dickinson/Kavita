@@ -24,12 +24,14 @@ import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {SafeStylePipe} from '../../../_pipes/safe-style.pipe';
 import {ReadingProfile} from "../../../_models/preferences/reading-profiles";
 import {BreakpointService} from "../../../_services/breakpoint.service";
+import {MokuroPage} from '../../_models/mokuro';
+import {MokuroOverlayComponent} from '../mokuro-overlay/mokuro-overlay.component';
 
 @Component({
     selector: 'app-single-renderer',
     templateUrl: './single-renderer.component.html',
     styleUrls: ['./single-renderer.component.scss'],
-    imports: [AsyncPipe, SafeStylePipe],
+    imports: [AsyncPipe, SafeStylePipe, MokuroOverlayComponent],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SingleRendererComponent implements OnInit, ImageRenderer {
@@ -45,6 +47,7 @@ export class SingleRendererComponent implements OnInit, ImageRenderer {
   @Input({required: true}) bookmark$!: Observable<number>;
   @Input({required: true}) showClickOverlay$!: Observable<boolean>;
   @Input({required: true}) pageNum$!: Observable<{pageNum: number, maxPages: number}>;
+  @Input() mokuroPages: MokuroPage[] = [];
 
   readonly imageElement = viewChild<ElementRef<HTMLImageElement>>('image');
 
